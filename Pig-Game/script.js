@@ -10,11 +10,16 @@ const score1El = document.querySelector('#score--1');
 const currScore0El = document.querySelector('#current--0');
 const currScore1El = document.querySelector('#current--1');
 
+const winEl = document.querySelector('.section-win');
+const overlayEl = document.querySelector('.overlay');
+
 let currScore = 0;
 let score = 0;
 let activePlayer = 0;
 
 function start() {
+  winEl.classList.add('hidden');
+  overlayEl.classList.add('hidden');
   diceEl.classList.add('hidden');
   score0El.textContent = 0;
   score1El.textContent = 0;
@@ -47,6 +52,14 @@ function changePlayer() {
   score = getScore();
 }
 
+function win() {
+  document.querySelector(
+    '.win-text'
+  ).textContent = `Congratulations🎉  Player ${activePlayer + 1} win!`;
+  winEl.classList.remove('hidden');
+  overlayEl.classList.remove('hidden');
+}
+
 start();
 
 btnRoll.addEventListener('click', () => {
@@ -67,7 +80,7 @@ btnHold.addEventListener('click', () => {
   score += currScore;
   setScore(score);
   if (score >= 100) {
-    console.log(`Congratulations🎉  Player ${activePlayer + 1} win!`);
+    win();
   }
 
   changePlayer();
@@ -76,3 +89,5 @@ btnHold.addEventListener('click', () => {
 btnNew.addEventListener('click', () => {
   start();
 });
+
+// Todo add exit functionallity same as in the modal
