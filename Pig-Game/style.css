@@ -181,3 +181,7 @@ main {
   display: inline-block;
   margin-right: 0.8rem;
 }
+
+.hidden {
+  display: none;
+}
