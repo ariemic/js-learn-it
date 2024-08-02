@@ -22,8 +22,29 @@ function start() {
   currScore1El.textContent = 0;
 }
 
+function setCurr(number = 0) {
+  document.getElementById(`current--${activePlayer}`).textContent = number;
+}
+
+function setScore(number = 0) {
+  document.getElementById(`score--${activePlayer}`).textContent = number;
+}
+
+function getCurr() {
+  return Number(
+    document.getElementById(`current--${activePlayer}`).textContent
+  );
+}
+
+function getScore() {
+  return Number(document.getElementById(`score--${activePlayer}`).textContent);
+}
+
 function changePlayer() {
+  currScore = 0;
+  setCurr();
   activePlayer = (activePlayer + 1) % 2;
+  score = getScore();
 }
 
 start();
@@ -39,11 +60,19 @@ btnRoll.addEventListener('click', () => {
     currScore = 0;
     changePlayer();
   }
-  document.getElementById(`current--${activePlayer}`).textContent = currScore;
+  setCurr(currScore);
 });
 
 btnHold.addEventListener('click', () => {
   score += currScore;
-  document.getElementById(`score--${activePlayer}`).textContent = score;
+  setScore(score);
+  if (score >= 100) {
+    console.log(`Congratulations🎉  Player ${activePlayer + 1} win!`);
+  }
+
   changePlayer();
+});
+
+btnNew.addEventListener('click', () => {
+  start();
 });
