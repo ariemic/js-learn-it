@@ -223,3 +223,16 @@ main {
   background-color: rgba(0, 0, 0, 0.4);
   backdrop-filter: blur(3px);
 }
+
+.close-win {
+  font-size: 5.2rem;
+  padding: 1.6rem 3.2rem;
+  background-color: transparent;
+  border: none;
+
+  position: absolute;
+  right: 0;
+  top: 0;
+
+  color: inherit;
+}

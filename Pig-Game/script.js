@@ -3,6 +3,7 @@
 const btnNew = document.querySelector('.btn--new');
 const btnRoll = document.querySelector('.btn--roll');
 const btnHold = document.querySelector('.btn--hold');
+
 const diceEl = document.querySelector('.dice');
 
 const score0El = document.querySelector('#score--0');
@@ -12,6 +13,7 @@ const currScore1El = document.querySelector('#current--1');
 
 const winEl = document.querySelector('.section-win');
 const overlayEl = document.querySelector('.overlay');
+const btnClose = document.querySelector('.close-win');
 
 let currScore = 0;
 let score = 0;
@@ -55,7 +57,7 @@ function changePlayer() {
 function win() {
   document.querySelector(
     '.win-text'
-  ).textContent = `Congratulations🎉  Player ${activePlayer + 1} win!`;
+  ).textContent = `Congratulations🎉  Player ${activePlayer + 1} wins!`;
   winEl.classList.remove('hidden');
   overlayEl.classList.remove('hidden');
 }
@@ -91,3 +93,11 @@ btnNew.addEventListener('click', () => {
 });
 
 // Todo add exit functionallity same as in the modal
+
+btnClose.addEventListener('click', start);
+overlayEl.addEventListener('click', start);
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' || !overlayEl.contains('hidden')) {
+    start();
+  }
+});
