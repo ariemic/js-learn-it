@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ToDo List</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="title-box">
+        <h1>TODO LIST</h1>
+        <div class="input-box">
+          <input type="text" placeholder="Enter task..." class="task-input" />
+          <button>add</button>
+        </div>
+      </div>
+      <div class="task-box">
+        <h2>tasks</h2>
+        <ul class="list-box">
+          <li class="list-item">
+            <p class="task-text">Eat breakfast 🍔</p>
+            <div class="icons">
+              <ion-icon name="checkmark" class="icon--check icon"></ion-icon>
+              <a class="edit icon">EDIT</a>
+              <ion-icon name="close" class="icon--close icon"></ion-icon>
+            </div>
+          </li>
+          <li class="list-item">
+            <p class="task-text">Eat breakfast 🍔</p>
+            <div class="icons">
+              <ion-icon name="checkmark" class="icon--check icon"></ion-icon>
+              <a class="edit icon">EDIT</a>
+              <ion-icon name="close" class="icon--close icon"></ion-icon>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="modal hidden">
+      <p class="edit-text">Edit task</p>
+      <input
+        type="text"
+        placeholder="sth is written here"
+        class="input-modal"
+      />
+      <div class="btn-box">
+        <button class="btn--accept">accept</button>
+        <button class="btn--cancel">cancel</button>
+      </div>
+    </div>
+    <script src="script.js"></script>
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
+  </body>
+</html>
