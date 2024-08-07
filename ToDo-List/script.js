@@ -28,26 +28,6 @@ function init() {
   modal = document.querySelector(".modal");
   inputModal = document.querySelector(".input-modal");
 
-  /*
-There is multiple of these buttons for every task there is one
-so querySelector chose always the first element
-btnCheck = document.querySelector(".icon--check");
-
-
-Something like this also won't work because we dynamically add new list items
-and buttons only apply to initial html file
-
-    checkBtns = document.querySelectorAll(".icon--check");
-    checkBtns.forEach((btn) => {
-    btn.addEventListener("click", (e) => {
-        btn.style.color = "grey";
-        const listItem = e.target.closest(".list-item");
-        const taskText = listItem.querySelector(".task-text");
-        taskText.style.textDecoration = "line-through";
-    });
-    });
-    */
-
   handlers = {
     "icon--check": () => {
       const taskText = currListItem.querySelector(".task-text");
@@ -64,7 +44,7 @@ and buttons only apply to initial html file
       toggleModal();
     },
   };
-  // we will use delgation to attach single event listener to a parent element like listBox
+
   listBox.addEventListener("click", handleListBoxClick);
   btnAdd.addEventListener("click", addTask);
   document.addEventListener("keydown", (e) => {
@@ -94,7 +74,6 @@ function addTask() {
             </div>
           </li>`;
 
-  // temp div to keep inner html
   const tempDiv = document.createElement("div");
   tempDiv.innerHTML = newListItemHTML;
 
@@ -103,15 +82,9 @@ function addTask() {
 }
 
 function handleListBoxClick(e) {
-  // we can use if else or switch to make it but...
-  // I want to make it look fancy so I'll use mapping and create
-  // object handlers that contains name of the class: function that make sth happens
-  // aftern I'll loop over this object and call the corresponding function :)
-  // THAT'S MARVELOUS
   const target = e.target;
   currListItem = target.closest(".list-item");
 
-  //   The for...of loop iterates over each key-value pair
   for (const [className, handler] of Object.entries(handlers)) {
     if (target.classList.contains(className)) {
       handler();
