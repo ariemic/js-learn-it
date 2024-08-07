@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      color: #fff;
+    }
+    body {
+      background-color: rgba(0, 0, 0, 0.8);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    h1 {
+      margin: 30px auto;
+    }
+    img {
+      width: 50%;
+    }
+    .btn--fetch {
+      color: black;
+      font-size: 16px;
+      padding: 8px 16px;
+      margin-top: 30px;
+    }
+    .container {
+      width: 1300px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-gap: 20px;
+
+      justify-items: center;
+      align-items: center;
+      margin-bottom: 50px;
+    }
+
+    .container img {
+      width: 400px;
+      height: 400px;
+    }
+  </style>
+  <body>
+    <h1>API: how to use</h1>
+    <img src="" alt="" />
+    <button class="btn--fetch">Fetch</button>
+    <h1>axios</h1>
+    <div class="container">
+      <img src="" alt="" class="one" />
+      <img src="" alt="" class="two" />
+      <img src="" alt="" class="three" />
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
