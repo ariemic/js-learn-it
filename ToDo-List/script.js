@@ -66,14 +66,15 @@ and buttons only apply to initial html file
   };
   // we will use delgation to attach single event listener to a parent element like listBox
   listBox.addEventListener("click", handleListBoxClick);
-}
+  btnAdd.addEventListener("click", addTask);
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      addTask();
+    }
+  });
 
-function resetInputModal() {
-  inputModal.value = "";
-}
-
-function toggleModal() {
-  modal.classList.toggle("hidden");
+  btnAccept.addEventListener("click", updateTaskText);
+  btnCancel.addEventListener("click", toggleModal);
 }
 
 function addTask() {
@@ -119,14 +120,7 @@ function handleListBoxClick(e) {
   }
 }
 
-function isEmpty() {
-  if (!listBox.children.length) {
-    p.textContent = "There are no tasks to do";
-    p.classList.remove("hidden");
-  }
-}
-
-function updateTask() {
+function updateTaskText() {
   const textEl = currListItem.querySelector(".task-text");
   const newText = inputModal.value;
   if (newText.length) {
@@ -144,13 +138,19 @@ function hideMessage() {
   p.classList.add("hidden");
 }
 
-init();
-btnAdd.addEventListener("click", addTask);
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Enter") {
-    addTask();
+function isEmpty() {
+  if (!listBox.children.length) {
+    p.textContent = "There are no tasks to do";
+    p.classList.remove("hidden");
   }
-});
+}
 
-btnAccept.addEventListener("click", updateTask);
-btnCancel.addEventListener("click", toggleModal);
+function resetInputModal() {
+  inputModal.value = "";
+}
+
+function toggleModal() {
+  modal.classList.toggle("hidden");
+}
+
+init();
