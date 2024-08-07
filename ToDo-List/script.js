@@ -49,19 +49,11 @@ and buttons only apply to initial html file
     */
 
   handlers = {
-    "icon--check": (target) => {
+    "icon--check": () => {
       const taskText = currListItem.querySelector(".task-text");
-      switch (true) {
-        case currListItem.classList.contains("completed"):
-          target.style.color = "";
-          taskText.style.textDecoration = "none";
-          currListItem.classList.remove("completed");
-          break;
-        default:
-          target.style.color = "grey";
-          taskText.style.textDecoration = "line-through";
-          currListItem.classList.add("completed");
-      }
+      const isCompleted = currListItem.classList.toggle("completed");
+      taskText.style.textDecoration = isCompleted ? "line-through" : "none";
+      target.style.color = isCompleted ? "grey" : "";
     },
     "icon--close": () => {
       listBox.removeChild(currListItem);
@@ -86,17 +78,13 @@ function toggleModal() {
 
 function addTask() {
   const task = inputTaskEl.value;
-  console.log(task);
-  if (!task.length) {
-    if (p.classList.contains("hidden")) {
-      p.classList.remove("hidden");
-    }
-    p.textContent = "Please enter task description";
-  } else {
-    if (!p.classList.contains("hidden")) {
-      p.classList.add("hidden");
-    }
-    const newListItemHTML = `<li class="list-item">
+
+  if (task === "") {
+    showMessage();
+    return;
+  }
+  hideMessage();
+  const newListItemHTML = `<li class="list-item">
             <p class="task-text">${task}</p>
             <div class="icons">
               <ion-icon name="checkmark" class="icon--check icon"></ion-icon>
@@ -105,13 +93,12 @@ function addTask() {
             </div>
           </li>`;
 
-    // temp div to keep inner html
-    const tempDiv = document.createElement("div");
-    tempDiv.innerHTML = newListItemHTML;
+  // temp div to keep inner html
+  const tempDiv = document.createElement("div");
+  tempDiv.innerHTML = newListItemHTML;
 
-    listBox.appendChild(tempDiv.firstElementChild);
-    inputTaskEl.value = "";
-  }
+  listBox.appendChild(tempDiv.firstElementChild);
+  inputTaskEl.value = "";
 }
 
 function handleListBoxClick(e) {
@@ -126,7 +113,7 @@ function handleListBoxClick(e) {
   //   The for...of loop iterates over each key-value pair
   for (const [className, handler] of Object.entries(handlers)) {
     if (target.classList.contains(className)) {
-      handler(target);
+      handler();
       return;
     }
   }
@@ -139,6 +126,24 @@ function isEmpty() {
   }
 }
 
+function updateTask() {
+  const textEl = currListItem.querySelector(".task-text");
+  const newText = inputModal.value;
+  if (newText.length) {
+    textEl.textContent = newText;
+    toggleModal();
+  }
+}
+
+function showMessage() {
+  p.textContent = "Please enter task description";
+  p.classList.remove("hidden");
+}
+
+function hideMessage() {
+  p.classList.add("hidden");
+}
+
 init();
 btnAdd.addEventListener("click", addTask);
 document.addEventListener("keydown", (e) => {
@@ -147,15 +152,5 @@ document.addEventListener("keydown", (e) => {
   }
 });
 
-btnAccept.addEventListener("click", () => {
-  const textEl = currListItem.querySelector(".task-text");
-  const newText = inputModal.value;
-  if (newText.length) {
-    textEl.textContent = newText;
-    toggleModal();
-  }
-});
-
-btnCancel.addEventListener("click", () => {
-  toggleModal();
-});
+btnAccept.addEventListener("click", updateTask);
+btnCancel.addEventListener("click", toggleModal);
