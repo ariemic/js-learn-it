@@ -49,27 +49,27 @@ and buttons only apply to initial html file
     */
 
   handlers = {
-    "icon--check": (target, listItem, taskText) => {
+    "icon--check": (target) => {
+      const taskText = currListItem.querySelector(".task-text");
       switch (true) {
-        case listItem.classList.contains("completed"):
+        case currListItem.classList.contains("completed"):
           target.style.color = "";
           taskText.style.textDecoration = "none";
-          listItem.classList.remove("completed");
+          currListItem.classList.remove("completed");
           break;
         default:
           target.style.color = "grey";
           taskText.style.textDecoration = "line-through";
-          listItem.classList.add("completed");
+          currListItem.classList.add("completed");
       }
     },
-    "icon--close": (target, listItem) => {
-      listBox.removeChild(listItem);
+    "icon--close": () => {
+      listBox.removeChild(currListItem);
       isEmpty();
     },
-    edit: (target, listItem, taskText) => {
+    edit: () => {
       resetInputModal();
       toggleModal();
-      currListItem = listItem;
     },
   };
   // we will use delgation to attach single event listener to a parent element like listBox
@@ -121,12 +121,12 @@ function handleListBoxClick(e) {
   // aftern I'll loop over this object and call the corresponding function :)
   // THAT'S MARVELOUS
   const target = e.target;
-  const listItem = target.closest(".list-item");
-  const taskText = listItem.querySelector(".task-text");
+  currListItem = target.closest(".list-item");
+
   //   The for...of loop iterates over each key-value pair
   for (const [className, handler] of Object.entries(handlers)) {
     if (target.classList.contains(className)) {
-      handler(target, listItem, taskText);
+      handler(target);
       return;
     }
   }
