@@ -10,7 +10,8 @@
 */
 
 let inputTaskEl, btnAdd, h2, listBox, p, handlers;
-let btnAccept, btnCancel, modal;
+let btnAccept, btnCancel, modal, inputModal;
+let currListItem = null;
 
 function init() {
   inputTaskEl = document.querySelector(".task-input");
@@ -25,6 +26,7 @@ function init() {
   btnAccept = document.querySelector(".btn--accept");
   btnCancel = document.querySelector(".btn--cancel");
   modal = document.querySelector(".modal");
+  inputModal = document.querySelector(".input-modal");
 
   /*
 There is multiple of these buttons for every task there is one
@@ -47,9 +49,7 @@ and buttons only apply to initial html file
     */
 
   handlers = {
-    "icon--check": (target) => {
-      const listItem = target.closest(".list-item");
-      const taskText = listItem.querySelector(".task-text");
+    "icon--check": (target, listItem, taskText) => {
       switch (true) {
         case listItem.classList.contains("completed"):
           target.style.color = "";
@@ -62,16 +62,26 @@ and buttons only apply to initial html file
           listItem.classList.add("completed");
       }
     },
-    "icon--close": (target) => {
-      const listItem = target.closest(".list-item");
+    "icon--close": (target, listItem) => {
       listBox.removeChild(listItem);
+      isEmpty();
     },
-    edit: () => {
-      modal.classList.toggle("hidden");
+    edit: (target, listItem, taskText) => {
+      resetInputModal();
+      toggleModal();
+      currListItem = listItem;
     },
   };
   // we will use delgation to attach single event listener to a parent element like listBox
   listBox.addEventListener("click", handleListBoxClick);
+}
+
+function resetInputModal() {
+  inputModal.value = "";
+}
+
+function toggleModal() {
+  modal.classList.toggle("hidden");
 }
 
 function addTask() {
@@ -100,7 +110,7 @@ function addTask() {
     tempDiv.innerHTML = newListItemHTML;
 
     listBox.appendChild(tempDiv.firstElementChild);
-    reload();
+    inputTaskEl.value = "";
   }
 }
 
@@ -111,13 +121,21 @@ function handleListBoxClick(e) {
   // aftern I'll loop over this object and call the corresponding function :)
   // THAT'S MARVELOUS
   const target = e.target;
-
+  const listItem = target.closest(".list-item");
+  const taskText = listItem.querySelector(".task-text");
   //   The for...of loop iterates over each key-value pair
   for (const [className, handler] of Object.entries(handlers)) {
     if (target.classList.contains(className)) {
-      handler(target);
+      handler(target, listItem, taskText);
       return;
     }
+  }
+}
+
+function isEmpty() {
+  if (!listBox.children.length) {
+    p.textContent = "There are no tasks to do";
+    p.classList.remove("hidden");
   }
 }
 
@@ -127,4 +145,17 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "Enter") {
     addTask();
   }
+});
+
+btnAccept.addEventListener("click", () => {
+  const textEl = currListItem.querySelector(".task-text");
+  const newText = inputModal.value;
+  if (newText.length) {
+    textEl.textContent = newText;
+    toggleModal();
+  }
+});
+
+btnCancel.addEventListener("click", () => {
+  toggleModal();
 });
