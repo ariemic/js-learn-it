@@ -1,0 +1,78 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --main-color: rgb(255, 120, 0);
+  /* --light-color: */
+}
+
+html {
+  font-size: 62.5%;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  font-size: 1.6rem;
+  background-color: #fff;
+}
+
+.hero-shadow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: -1;
+}
+
+.orange-color {
+  color: var(--main-color);
+}
+
+.navbar-brand {
+  font-size: 2.2rem;
+}
+
+.navbar-nav a {
+  text-transform: uppercase;
+}
+
+.home {
+  position: relative;
+  height: 60rem;
+  z-index: 0;
+  background-image: url("../img/buildings-1850129_1920.jpg");
+  background-size: contain;
+  background-position: center;
+}
+
+.home .btn {
+  padding: 1.2rem 1.8rem;
+  font-size: 1.4rem;
+  text-transform: uppercase;
+}
+
+.accordion-button {
+  padding: 1.2rem;
+  font-size: 1.8rem;
+}
+
+.accordion-header .accordion-button {
+  color: var(--main-color);
+  background-color: transparent;
+  border: none;
+}
+
+.accordion-button.collapsed {
+  background-color: #f8f9fa; /* Light background for hidden accordion items */
+}
+
+.accordion-button:not(.collapsed) {
+  background-color: transparent; /* Light background for hidden accordion items */
+  box-shadow: none;
+}
